@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import { Button } from 'antd'
 import Person from './components/Person';
+import CountPerson from './components/CountPerson'
 
 class App extends React.Component {
   constructor(props) {
@@ -9,6 +10,7 @@ class App extends React.Component {
     console.log('[App.js] Constructor')
     this.state = {
       isShow: true,
+      testNotOnAnyJSX: 0,
       personList: [
         { name: "Sonter", age: 19 },
         { name: "Tobtab", age: 18 },
@@ -25,10 +27,25 @@ class App extends React.Component {
   }
 
   onInputChange = (e, index) => {
-    const oldPersonList = this.state.personList;
+    const oldPersonList = [...this.state.personList];
+    // อย่าทำแบบนี้: const oldPersonList = this.state.personList;
+    oldPersonList.push({
+      name: "Tong",
+      name: 25
+    })
     oldPersonList[index].name = e.target.value;
     this.setState({
       personList: oldPersonList
+    })
+  }
+
+  changeAge = () => {
+    this.setState({
+      personList: [
+        { name: "Sonter", age: 10 },
+        { name: "Tobtab", age: 10 },
+        { name: "Xeus", age: 10 }
+      ]
     })
   }
 
@@ -55,8 +72,11 @@ class App extends React.Component {
     return (
       <div className="App" >
         <Button onClick={this.onClickShow}> Toggle Students </Button>
+        <Button onClick={this.changeAge}>Change all people age</Button>
+        <Button onClick={() => this.setState({ testNotOnAnyJSX: this.state.testNotOnAnyJSX + 1 })}>Test DOM</Button>
         <br />
         {personList}
+        <CountPerson personList={this.state.personList} />
       </div>
     );
   }
