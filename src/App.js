@@ -80,7 +80,7 @@ class App extends React.Component {
                 onChangeInput={this.onInputChange}
                 idx={idx}
                 name={person.name}
-                age={Number(person.age} />
+                age={Number(person.age)} />
             </div>
           ))}
         </div>
